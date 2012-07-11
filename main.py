@@ -1,12 +1,14 @@
+#!/usr/bin/env python
+
 from datetime import datetime
 
-from urllib import urlopen
+from urllib2 import urlopen
 from BeautifulSoup import BeautifulSoup
 
 
 def get_content(url):
     try:
-        data = urlopen(url).read()
+        data = urlopen(url, timeout=5).read()
     except:
         print "Cannot open url: " + url
         return None
@@ -42,4 +44,5 @@ def scrape(url, file_path='stats.txt'):
 
 if __name__=="__main__":
     url = "http://www.kickstarter.com/projects/ouya/ouya-a-new-kind-of-video-game-console"
-    scrape(url)
+    path = "[PATH]/stats.txt"
+    scrape(url, path)
