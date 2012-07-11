@@ -41,4 +41,4 @@ def scrape(url, file_path='stats.txt'):
 
 if __name__=="__main__":
     url = "http://www.kickstarter.com/projects/ouya/ouya-a-new-kind-of-video-game-console"
-    main(url)
+    scrape(url)
