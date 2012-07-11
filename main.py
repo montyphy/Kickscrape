@@ -9,6 +9,7 @@ def get_content(url):
         data = urlopen(url).read()
     except:
         print "Cannot open url: " + url
+        return None
     return data
 
 def get_backers(soup):
@@ -27,15 +28,15 @@ def save(file_path, data):
 
 def scrape(url, file_path='stats.txt'):
     data = get_content(url)
+    if data:
+        soup = BeautifulSoup(data, convertEntities=BeautifulSoup.HTML_ENTITIES)
 
-    soup = BeautifulSoup(data, convertEntities=BeautifulSoup.HTML_ENTITIES)
+        timestamp = datetime.now().isoformat()
+        backers = get_backers(soup)
+        pledged = get_pledged(soup)
 
-    timestamp = datetime.now().isoformat()
-    backers = get_backers(soup)
-    pledged = get_pledged(soup)
-
-    output = '{0}, {1}, {2}\n'.format(timestamp, backers, pledged)
-    save(file_path, output)
+        output = '{0}, {1}, {2}\n'.format(timestamp, backers, pledged)
+        save(file_path, output)
 
 
 
